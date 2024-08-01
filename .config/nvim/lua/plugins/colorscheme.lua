@@ -10,4 +10,5 @@ return {
     end,
   },
   { "rose-pine/neovim", name = "rose-pine" },
+  { "Mofiqul/vscode.nvim", name = "vscode" },
 }

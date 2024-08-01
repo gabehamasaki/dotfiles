@@ -30,6 +30,10 @@ return {
         desc = "Goto Definition",
         has = "definition",
       }
+
+      local lsp = require("lspconfig")
+      local capabilities = vim.lsp.protocol.make_client_capabilities()
+      lsp.intelephense.setup({})
     end,
     opts = {
       inlay_hints = { enabled = false },
@@ -45,7 +49,6 @@ return {
           root_dir = function(...)
             return require("lspconfig.util").root_pattern(".git")(...)
           end,
-          filetypes = { "typescript", "typescriptreact", "astro", "javascript", "javascriptreact" },
           single_file_support = false,
           settings = {
             typescript = {

@@ -1,6 +1,7 @@
 set fish_greeting ""
 
 set -gx TERM xterm-256color
+starship init fish | source
 source ~/.asdf/asdf.fish
 
 # theme
@@ -16,7 +17,27 @@ alias la "ls -A"
 alias ll "ls -l"
 alias lla "ll -A"
 alias g git
-command -qv nvim && alias vim nvim
+command -qv nvim && alias vim nvim && alias vi nvim
+alias upd='sudo apt update; sudo apt upgrade -y'
+alias top='htop'
+alias log='tail -f storage/logs/laravel-$(date +%F).log'
+alias logs='tmux \
+  new-session  "tail -f storage/logs/laravel-$(date +%F).log ; read" \; \
+  split-window "tail -f storage/logs/worker.log ; read" \; \
+  select-layout even-vertical'
+alias dev='composer dev && yarn dev'
+alias build='yarn build && composer deploy'
+alias queue="php artisan queue:work --queue=high,low,default --sleep=3 --tries=3"
+alias sail='sh $([ -f sail ] && echo sail || echo vendor/bin/sail)'
+
+function art --description 'Run artisan commands or rails commands'
+    if test -f artisan
+        php artisan $argv
+    else
+        rails $argv
+    end
+end
+
 
 set -gx EDITOR nvim
 
@@ -32,6 +53,12 @@ export PATH="$PATH:/usr/local/go/bin"
 set -g GOPATH $HOME/go
 set -gx PATH $GOPATH/bin $PATH
 
+# Java
+set -g __sdkman_custom_dir /home/gabriel/.sdkman
+
+# laravel
+export PATH="$PATH:$HOME/.config/composer/vendor/bin"
+
 switch (uname)
     case Darwin
         source (dirname (status --current-filename))/config-osx.fish
@@ -45,24 +72,3 @@ set LOCAL_CONFIG (dirname (status --current-filename))/config-local.fish
 if test -f $LOCAL_CONFIG
     source $LOCAL_CONFIG
 end
-
-# alias
-
-alias upd='sudo apt update; sudo apt upgrade -y'
-alias top='htop'
-alias log='tail -f storage/logs/laravel-$(date +%F).log'
-alias logs='tmux \
-  new-session  "tail -f storage/logs/laravel-$(date +%F).log ; read" \; \
-  split-window "tail -f storage/logs/worker.log ; read" \; \
-  select-layout even-vertical'
-
-alias art='php artisan'
-alias ga='git add'
-alias gc='git commit -m'
-alias gp='git push'
-alias gpl='git pull'
-alias gs='git status'
-alias gl='git log'
-alias gd='git diff'
-alias gco='git checkout'
-alias gcb='git checkout -b'
