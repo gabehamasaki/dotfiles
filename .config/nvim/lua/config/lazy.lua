@@ -1,46 +1,29 @@
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
-  vim.fn.system({
-    "git",
-    "clone",
-    "--filter=blob:none",
-    "https://github.com/folke/lazy.nvim.git",
-    "--branch=stable", -- latest stable release
-    lazypath,
-  })
+  -- bootstrap lazy.nvim
+  -- stylua: ignore
+  vim.fn.system({ "git", "clone", "--filter=blob:none", "https://github.com/folke/lazy.nvim.git", "--branch=stable",
+    lazypath })
 end
-vim.opt.rtp:prepend(lazypath)
+vim.opt.rtp:prepend(vim.env.LAZY or lazypath)
 
 require("lazy").setup({
   spec = {
     -- add LazyVim and import its plugins
-    {
-      "LazyVim/LazyVim",
-      import = "lazyvim.plugins",
-      opts = {
-        colorscheme = "vscode",
-        news = {
-          lazyvim = true,
-          neovim = true,
-        },
-      },
-    },
+    { "LazyVim/LazyVim", import = "lazyvim.plugins" },
     -- import any extras modules here
-    { import = "lazyvim.plugins.extras.linting.eslint" },
-    { import = "lazyvim.plugins.extras.formatting.prettier" },
     { import = "lazyvim.plugins.extras.lang.typescript" },
     { import = "lazyvim.plugins.extras.lang.json" },
-    { import = "lazyvim.plugins.extras.lang.markdown" },
-    { import = "lazyvim.plugins.extras.lang.rust" },
-    { import = "lazyvim.plugins.extras.lang.tailwind" },
+    { import = "lazyvim.plugins.extras.lang.yaml" },
+    { import = "lazyvim.plugins.extras.lang.docker" },
+    { import = "lazyvim.plugins.extras.lang.tex" },
+    { import = "lazyvim.plugins.extras.lang.python" },
     { import = "lazyvim.plugins.extras.coding.copilot" },
-    -- { import = "lazyvim.plugins.extras.dap.core" },
-    -- { import = "lazyvim.plugins.extras.vscode" },
-    { import = "lazyvim.plugins.extras.util.mini-hipatterns" },
-    -- { import = "lazyvim.plugins.extras.test.core" },
-    -- { import = "lazyvim.plugins.extras.coding.yanky" },
-    -- { import = "lazyvim.plugins.extras.editor.mini-files" },
-    -- { import = "lazyvim.plugins.extras.util.project" },
+    { import = "lazyvim.plugins.extras.dap.core" },
+    { import = "lazyvim.plugins.extras.lsp.none-ls" },
+    { import = "lazyvim.plugins.extras.lang.go" },
+    -- { import = "lazyvim.plugins.extras.ui.mini-animate" },
+    -- import/override with your plugins
     { import = "plugins" },
   },
   defaults = {
@@ -52,23 +35,16 @@ require("lazy").setup({
     version = false, -- always use the latest git commit
     -- version = "*", -- try installing the latest stable version for plugins that support semver
   },
-  dev = {
-    path = "~/.ghq/github.com",
-  },
+  install = { colorscheme = { "catppuccin" } },
   checker = { enabled = true }, -- automatically check for plugin updates
   performance = {
-    cache = {
-      enabled = true,
-      -- disable_events = {},
-    },
     rtp = {
       -- disable some rtp plugins
       disabled_plugins = {
         "gzip",
         -- "matchit",
         -- "matchparen",
-        "netrwPlugin",
-        "rplugin",
+        -- "netrwPlugin",
         "tarPlugin",
         "tohtml",
         "tutor",
@@ -76,12 +52,4 @@ require("lazy").setup({
       },
     },
   },
-  ui = {
-    custom_keys = {
-      ["<localleader>d"] = function(plugin)
-        dd(plugin)
-      end,
-    },
-  },
-  debug = false,
 })
