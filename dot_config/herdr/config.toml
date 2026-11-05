@@ -57,11 +57,11 @@ split_horizontal = ["prefix+minus", 'prefix+"', "prefix+_"]
 goto = "prefix+u"
 open_notification_target = "prefix+shift+o"
 
-# Open current directory
+# Open current directory in Windows Explorer (WSL)
 [[keys.command]]
 key = "prefix+o"
 type = "shell"
-command = 'open "$HERDR_ACTIVE_PANE_CWD"'
+command = 'cd "$HERDR_ACTIVE_PANE_CWD" && explorer.exe .'
 
 # Kill all other panes in the current tab
 [[keys.command]]
