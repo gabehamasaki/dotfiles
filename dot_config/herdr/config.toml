@@ -1,8 +1,9 @@
 onboarding = false
 
 [theme]
-name = "solarized"
+name = "tokyo-night"
 
+auto_switch = false
 [ui]
 pane_gaps = false
 # wrap_pane_focus = true
@@ -15,6 +16,7 @@ sidebar_width = 20
 window_title = "{workspace}: {terminal_title}"
 
 # Show Claude's session summary (its terminal title) instead of the agent name
+status_indicators = "symbols"
 [ui.sidebar.agents.rows_by_agent]
 claude = [["state_icon", "machine", "workspace", "tab"], ["terminal_title_stripped"]]
 
@@ -109,3 +111,6 @@ command = '"$HOME/bin/herdr-move-workspace" down'
 
 [experimental]
 pane_history = true
+
+[ui.toast]
+delivery = "system"
