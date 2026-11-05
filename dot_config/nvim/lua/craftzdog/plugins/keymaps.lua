@@ -114,6 +114,18 @@ map({
 	{ "<leader>cl", Snacks.picker.lsp_config, desc = "Lsp Info" },
 	{ "<leader>cR", Snacks.rename.rename_file, desc = "Rename File" },
 	{ ";f", Snacks.picker.files, desc = "Find files" },
+	{
+		"<leader><leader>",
+		function()
+			-- Non-file buffers (oil://, terminals, empty) have no real directory, so fall back to cwd.
+			local dir = vim.fs.dirname(vim.api.nvim_buf_get_name(0))
+			if vim.fn.isdirectory(dir) == 0 then
+				dir = vim.fn.getcwd()
+			end
+			Snacks.picker.files({ cwd = dir })
+		end,
+		desc = "Find files (current file's folder)",
+	},
 	{ ";r", Snacks.picker.grep, desc = "Live grep" },
 	{ ";;", Snacks.picker.resume, desc = "Resume picker" },
 	{
