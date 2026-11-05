@@ -4,3 +4,5 @@ if type -q eza
 end
 
 alias fd fdfind
+
+fish_add_path /opt/nvim-linux-x86_64/bin
