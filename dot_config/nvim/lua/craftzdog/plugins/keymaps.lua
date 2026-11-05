@@ -117,6 +117,13 @@ map({
 	{ ";r", Snacks.picker.grep, desc = "Live grep" },
 	{ ";;", Snacks.picker.resume, desc = "Resume picker" },
 	{
+		"<leader>t",
+		function()
+			Snacks.picker.files({ confirm = "tab" })
+		end,
+		desc = "Find file (open in new tab)",
+	},
+	{
 		"\\\\",
 		function()
 			Snacks.picker.buffers({
