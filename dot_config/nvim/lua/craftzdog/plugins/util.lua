@@ -58,5 +58,8 @@ require("which-key").setup({
 		{ "<leader>b", group = "buffer" },
 		{ ";", group = "find" },
 		{ "<leader>w", group = "window" },
+		{ "<leader>a", group = "claude" },
 	},
 })
+
+require("claudecode").setup()

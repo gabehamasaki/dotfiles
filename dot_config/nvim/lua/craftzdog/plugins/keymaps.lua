@@ -277,3 +277,8 @@ map({
 	{ "<leader>dh", "<cmd>CodeDiff history %<cr>", desc = "File history (current file)" },
 	{ "<leader>dH", "<cmd>CodeDiff history<cr>", desc = "File history (repo)" },
 })
+
+-- Claude Code
+map({
+	{ "<leader>ac", "<cmd>ClaudeCode<cr>", desc = "Toggle Claude Code" },
+})

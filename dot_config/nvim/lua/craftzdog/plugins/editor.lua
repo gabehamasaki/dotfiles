@@ -110,6 +110,10 @@ require("conform").setup({
 		lua = { "stylua" },
 		sh = { "shfmt" },
 		fish = { "fish_indent" },
+		go = { "goimports", "gofumpt" },
+		php = { "pint", "php_cs_fixer", stop_after_first = true },
+		blade = { "blade-formatter" },
+		twig = { "twig-cs-fixer" },
 	},
 	formatters = {
 		oxfmt = {
@@ -117,6 +121,12 @@ require("conform").setup({
 			-- (.oxfmtrc.json / .oxfmtrc.jsonc). Without it, oxfmt is skipped and the
 			-- formatter list falls back to prettier.
 			require_cwd = true,
+		},
+		-- Laravel projects use pint; others (e.g. Symfony) fall back to php_cs_fixer.
+		pint = {
+			condition = function(_, ctx)
+				return vim.fs.find("vendor/bin/pint", { path = ctx.dirname, upward = true })[1] ~= nil
+			end,
 		},
 	},
 	format_on_save = function(bufnr)
