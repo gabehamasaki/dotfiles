@@ -20,7 +20,7 @@ end
 -- Oil - File explorer
 map({
 	{
-		"sf",
+		"<leader>e",
 		function()
 			require("oil").open_float(nil, { preview = {} })
 		end,

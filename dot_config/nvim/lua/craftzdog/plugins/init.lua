@@ -30,6 +30,7 @@ vim.pack.add({
 	-- Util
 	{ src = gh("stevearc/oil.nvim") },
 	{ src = gh("zbirenbaum/copilot.lua") },
+	{ src = gh("folke/which-key.nvim") },
 })
 
 if #vim.api.nvim_get_runtime_file("lua/craftzdog/plugins/local.lua", false) > 0 then

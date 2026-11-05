@@ -47,3 +47,16 @@ require("copilot").setup({
 		help = true,
 	},
 })
+
+require("which-key").setup({
+	delay = 300,
+	spec = {
+		{ "<leader>c", group = "code" },
+		{ "<leader>g", group = "git" },
+		{ "<leader>d", group = "diff" },
+		{ "<leader>y", group = "yank" },
+		{ "<leader>b", group = "buffer" },
+		{ ";", group = "find" },
+		{ "<leader>w", group = "window" },
+	},
+})
