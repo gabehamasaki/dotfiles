@@ -30,6 +30,8 @@ require("mason-tool-installer").setup({
 		"laravel-ls",
 		"yaml-language-server",
 		"helm-ls",
+		"ansible-language-server",
+		"ansible-lint",
 	},
 	auto_update = false,
 	run_on_start = true,
@@ -57,6 +59,12 @@ vim.filetype.add({
 	pattern = {
 		[".*/templates/.*%.ya?ml"] = helm_or("yaml"),
 		[".*/templates/.*%.tpl"] = helm_or("smarty"),
+		-- ansiblels only attaches to "yaml.ansible", detected here by an ansible.cfg above the file.
+		[".*%.ya?ml"] = function(path)
+			if vim.fs.root(path, "ansible.cfg") then
+				return "yaml.ansible"
+			end
+		end,
 	},
 })
 
@@ -77,4 +85,5 @@ vim.lsp.enable({
 	"laravel_ls",
 	"yamlls",
 	"helm_ls",
+	"ansiblels",
 })
