@@ -62,4 +62,7 @@ require("which-key").setup({
 	},
 })
 
-require("claudecode").setup()
+require("claudecode").setup({
+	-- Fullscreen renderer draws on the alternate screen, which nvim terminal buffers don't keep in scrollback.
+	env = { CLAUDE_CODE_DISABLE_ALTERNATE_SCREEN = "1" },
+})
