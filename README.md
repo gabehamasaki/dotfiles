@@ -1,14 +1,13 @@
 ![nvim screenshot](./images/screenshot-neovim.png)
 
-# Takuya's dotfiles
+# Gabriel Hamasaki's dotfiles
+
+My personal dotfiles, used daily on **WSL2 (Ubuntu)**.
+
+> Based on [Takuya's dotfiles](https://github.com/craftzdog/dotfiles) by [Takuya Matsuyama (@craftzdog)](https://github.com/craftzdog).
+> Huge thanks to him for sharing his setup — most of the configuration here is his work.
 
 **Warning**: Don’t blindly use my settings unless you know what that entails. Use at your own risk!
-
-### Looking for an AI-native tech notes app?
-
-Check out my app called [Inkdrop](https://www.inkdrop.app/)
-
-[![Inkdrop](./images/screenshot-inkdrop.jpg)](https://www.inkdrop.app/)
 
 ## Contents
 
@@ -23,6 +22,34 @@ Managed with [chezmoi](https://www.chezmoi.io/).
 - PowerShell config
 - Homebrew, apt, Scoop and winget package lists
 
+## Install (WSL2 / Ubuntu)
+
+```sh
+# chezmoi
+sh -c "$(curl -fsLS get.chezmoi.io)" -- -b ~/.local/bin
+
+# Clone and apply (prompts for name, email and GitHub user; runs apt and npm installs)
+~/.local/bin/chezmoi init --apply gabehamasaki
+
+# Fish plugins (Fisher, Tide, z, fzf.fish, ...)
+fish -c 'curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher update'
+
+# Extra tools not in apt-packages.txt
+sudo apt install -y git-delta lazygit tree-sitter-cli jq
+
+# herdr
+curl -fsSL https://herdr.dev/install.sh | sh
+```
+
+Neovim >= 0.12 is not available on apt yet, so install it from the [official release tarball](https://github.com/neovim/neovim/releases) into `~/.local`.
+
+Machine-specific fish settings (asdf, PATH tweaks, etc.) go in `~/.config/fish/config-local.fish`, which is not tracked.
+
+### WSL notes
+
+- Install a Nerd Font (e.g. BlexMono Nerd Font) on **Windows** and select it in Windows Terminal, otherwise icons render as boxes.
+- herdr `prefix+o` opens the current directory with `explorer.exe`.
+
 ## Neovim setup
 
 ### Requirements
@@ -34,23 +61,16 @@ Managed with [chezmoi](https://www.chezmoi.io/).
 - for the [snacks.nvim](https://github.com/folke/snacks.nvim) picker:
   - **live grep**: [ripgrep](https://github.com/BurntSushi/ripgrep)
   - **find files**: [fd](https://github.com/sharkdp/fd)
-- a terminal that supports true color and _undercurl_, such as [Ghostty](https://ghostty.org/)
+- a terminal that supports true color and _undercurl_
 - [Solarized Osaka](https://github.com/craftzdog/solarized-osaka.nvim)
 
 ## Terminal setup
 
-- [Ghostty](https://ghostty.org/) - Terminal emulator
 - [herdr](https://herdr.dev/) - Workspace manager for running AI coding agents side by side, with tmux-style keybindings (prefix `ctrl+t`)
 - [tmux](https://github.com/tmux/tmux) - Terminal multiplexer
+- [Ghostty](https://ghostty.org/) - Terminal emulator (macOS/Linux desktop)
 
-### Fonts
-
-Installed as Homebrew casks from the `Brewfile`:
-
-- [PlemolJP](https://github.com/yuru7/PlemolJP) (`PlemolJP Console NF`) - A mix of IBM Plex Mono and IBM Plex Sans JP
-- [BlexMono Nerd Font](https://github.com/ryanoasis/nerd-fonts)
-
-## Shell setup (macOS & Linux)
+## Shell setup
 
 - [Fish shell](https://fishshell.com/)
 - [Fisher](https://github.com/jorgebucaran/fisher) - Plugin manager
@@ -60,19 +80,16 @@ Installed as Homebrew casks from the `Brewfile`:
 - [ghq](https://github.com/x-motemen/ghq) - Local Git repository organizer
 - [fzf](https://github.com/PatrickF1/fzf.fish) - Interactive filtering
 
-## PowerShell setup (Windows)
+## Keeping up with upstream
 
-- [Scoop](https://scoop.sh/) - A command-line installer
-- [Git for Windows](https://gitforwindows.org/)
-- [Oh My Posh](https://ohmyposh.dev/) - Prompt theme engine
-- [Terminal Icons](https://github.com/devblackops/Terminal-Icons) - Folder and file icons
-- [PSReadLine](https://docs.microsoft.com/en-us/powershell/module/psreadline/) - Cmdlets for customizing the editing environment, used for autocompletion
-- [z](https://www.powershellgallery.com/packages/z) - Directory jumper
-- [PSFzf](https://github.com/kelleyma49/PSFzf) - Fuzzy finder
+```sh
+chezmoi cd
+git fetch upstream   # upstream = https://github.com/craftzdog/dotfiles
+git merge upstream/master
+chezmoi apply
+```
 
-## How to use
-
-Watch my video tutorials:
+## Learn more (by Takuya)
 
 1. [My Neovim setup](https://www.youtube.com/watch?v=fFHlfbKVi30)
    - [Article version](https://www.devas.life/effective-neovim-setup-for-web-development-towards-2024/)
@@ -80,10 +97,9 @@ Watch my video tutorials:
 1. [A productive command-line Git workflow for indie app developers](https://www.youtube.com/watch?v=qKpY7t5m35k&list=PLxQA0uNgQDCICMRwlOzWAZBPL05XBC_br&index=4)
    - [Blogpost](https://dev.to/craftzdog/a-productive-command-line-git-workflow-for-indie-app-developers-k7d)
 1. [My Fish shell workflow for coding](https://www.youtube.com/watch?v=KKxhf50FIPI)
-1. [How to set up PowerShell prompt with Oh My Posh on Windows 11](https://www.youtube.com/watch?v=5-aK2_WwrmM)
 
-## About me
+Check out his app [Inkdrop](https://www.inkdrop.app/) and his newsletter [devas.life](https://www.devas.life/).
 
-- [@inkdrop_app on X](https://twitter.com/inkdrop_app)
-- [Newsletters](https://www.devas.life/)
-- [My product: Inkdrop - Markdown note-taking app](https://www.inkdrop.app/)
+## Author
+
+Gabriel Hamasaki — [@gabehamasaki](https://github.com/gabehamasaki)
