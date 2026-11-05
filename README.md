@@ -31,8 +31,8 @@ sh -c "$(curl -fsLS get.chezmoi.io)" -- -b ~/.local/bin
 # Clone and apply (prompts for name, email and GitHub user; runs apt and npm installs)
 ~/.local/bin/chezmoi init --apply gabehamasaki
 
-# Fish plugins (Fisher, Tide, z, fzf.fish, ...)
-fish -c 'curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher update'
+# Fish plugins (Fisher, Tide, z, fzf.fish, ...) and Tide style (Lean, two lines, many icons)
+# already run by chezmoi (run_once_after_setup-fish.sh) after apply
 
 # Extra tools not in apt-packages.txt
 sudo apt install -y git-delta lazygit tree-sitter-cli jq
