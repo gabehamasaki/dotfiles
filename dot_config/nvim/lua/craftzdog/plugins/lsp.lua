@@ -32,6 +32,7 @@ require("mason-tool-installer").setup({
 		"helm-ls",
 		"ansible-language-server",
 		"ansible-lint",
+		"jdtls",
 	},
 	auto_update = false,
 	run_on_start = true,
@@ -86,4 +87,5 @@ vim.lsp.enable({
 	"yamlls",
 	"helm_ls",
 	"ansiblels",
+	"jdtls",
 })
