@@ -117,14 +117,9 @@ map({
 	{
 		"<leader><leader>",
 		function()
-			-- Non-file buffers (oil://, terminals, empty) have no real directory, so fall back to cwd.
-			local dir = vim.fs.dirname(vim.api.nvim_buf_get_name(0))
-			if vim.fn.isdirectory(dir) == 0 then
-				dir = vim.fn.getcwd()
-			end
-			Snacks.picker.files({ cwd = dir })
+			Snacks.picker.files({ cwd = vim.fn.getcwd() })
 		end,
-		desc = "Find files (current file's folder)",
+		desc = "Find files (folder nvim was opened in)",
 	},
 	{ ";r", Snacks.picker.grep, desc = "Live grep" },
 	{ ";;", Snacks.picker.resume, desc = "Resume picker" },
