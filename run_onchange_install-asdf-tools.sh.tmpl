@@ -1,0 +1,17 @@
+#!/bin/sh
+# .tool-versions hash: {{ include "dot_tool-versions" | sha256sum }}
+
+set -e
+
+PATH="$HOME/go/bin:$HOME/.asdf/shims:$PATH"
+
+if ! command -v asdf >/dev/null; then
+  echo "asdf not found: install it first (see README) and re-run chezmoi apply" >&2
+  exit 1
+fi
+
+for plugin in $(awk '{print $1}' "$HOME/.tool-versions"); do
+  asdf plugin list | grep -qx "$plugin" || asdf plugin add "$plugin"
+done
+
+asdf install

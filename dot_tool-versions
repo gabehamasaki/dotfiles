@@ -1,0 +1,6 @@
+php 8.5.12
+nodejs 24.18.0
+java temurin-21.0.13+9.0.LTS temurin-25.0.5+8.0.LTS
+maven 3.9.9
+gradle 9.9.1
+quarkus 3.40.1.1
