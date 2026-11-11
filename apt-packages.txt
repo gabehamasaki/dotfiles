@@ -5,3 +5,13 @@ bat
 fd-find
 ripgrep
 eza
+zip
+unzip
+git
+curl
+wget
+tar
+gzip
+jq
+git-delta
+python3

@@ -34,14 +34,16 @@ sh -c "$(curl -fsLS get.chezmoi.io)" -- -b ~/.local/bin
 # Fish plugins (Fisher, Tide, z, fzf.fish, ...) and Tide style (Lean, two lines, many icons)
 # already run by chezmoi (run_once_after_setup-fish.sh) after apply
 
-# Extra tools not in apt-packages.txt
-sudo apt install -y git-delta lazygit tree-sitter-cli jq
-
 # herdr
 curl -fsSL https://herdr.dev/install.sh | sh
+
+# asdf (Go binary) - needed by run_onchange_install-asdf-tools.sh, which installs the versions in .tool-versions (Java 21/25, Maven, Gradle, Quarkus CLI, ...)
+go install github.com/asdf-vm/asdf/cmd/asdf@v0.20.0
 ```
 
-Neovim >= 0.12 is not available on apt yet, so install it from the [official release tarball](https://github.com/neovim/neovim/releases) into `~/.local`.
+Neovim >= 0.12 and lazygit are not on apt, so `run_once_after_install-nvim-deps.sh` installs them from GitHub releases (Neovim into `/opt`, lazygit into `~/.local/bin`). `tree-sitter-cli` and the language servers are installed by mason on first nvim start.
+
+Java: jdtls (mason) needs JDK 25 to run, so keep a `temurin-25*` JDK in `.tool-versions`; projects can use 21 (`after/lsp/jdtls.lua` registers both).
 
 Machine-specific fish settings (asdf, PATH tweaks, etc.) go in `~/.config/fish/config-local.fish`, which is not tracked.
 
