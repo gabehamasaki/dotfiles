@@ -41,6 +41,8 @@ curl -fsSL https://herdr.dev/install.sh | sh
 go install github.com/asdf-vm/asdf/cmd/asdf@v0.20.0
 ```
 
+Docker Engine runs natively in WSL (no Docker Desktop): `run_once_after_install-docker.sh` adds Docker's official apt repo, installs `docker-ce` + buildx/compose plugins, adds you to the `docker` group and enables the service via systemd (needs `[boot] systemd=true` in `/etc/wsl.conf`). Log out/in (or `wsl --shutdown`) afterwards to use `docker` without sudo.
+
 Neovim >= 0.12 and lazygit are not on apt, so `run_once_after_install-nvim-deps.sh` installs them from GitHub releases (Neovim into `/opt`, lazygit into `~/.local/bin`). `tree-sitter-cli` and the language servers are installed by mason on first nvim start.
 
 Java: jdtls (mason) needs JDK 25 to run, so keep a `temurin-25*` JDK in `.tool-versions`; projects can use 21 (`after/lsp/jdtls.lua` registers both).
