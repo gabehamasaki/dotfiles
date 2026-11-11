@@ -1,0 +1,27 @@
+#!/bin/sh
+# Builds PECL extensions for the asdf PHP (it ships without pecl). Re-runs when .tool-versions changes.
+# .tool-versions hash: {{ include "dot_tool-versions" | sha256sum }}
+set -e
+
+PATH="$HOME/.asdf/shims:$PATH"
+EXTENSIONS="redis"
+
+if ! command -v php >/dev/null 2>&1 || ! command -v phpize >/dev/null 2>&1; then
+  echo "install-php-extensions: asdf php not found, skipping" >&2
+  exit 0
+fi
+
+ini_dir=$(php -r 'echo PHP_CONFIG_FILE_SCAN_DIR;')
+mkdir -p "$ini_dir"
+
+for ext in $EXTENSIONS; do
+  if php -m | grep -qix "$ext"; then
+    continue
+  fi
+  build=$(mktemp -d)
+  curl -fsSL "https://pecl.php.net/get/$ext" | tar -xz -C "$build"
+  src=$(find "$build" -maxdepth 1 -mindepth 1 -type d -name "$ext-*" | head -1)
+  (cd "$src" && phpize && ./configure --with-php-config="$(command -v php-config)" && make -j"$(nproc)" && make install)
+  rm -rf "$build"
+  echo "extension=$ext.so" > "$ini_dir/$ext.ini"
+done
